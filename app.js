@@ -9,6 +9,7 @@ const io = socketIo(server)
 app.use(express.static(path.join(__dirname, 'public')))
 app.use(express.json())
 app.use(express.urlencoded({extended:true}))
+const port = process.env.PORT || 4000;
 
 let waitingUsers = []
 let room = {}
@@ -62,4 +63,6 @@ app.get("/chat" , (req , res)=>{
     res.render("chat")
 })
 
-server.listen(3000)
+server.listen(port, () => {
+    console.log(`Example app listening on port ${port}`)
+  })
