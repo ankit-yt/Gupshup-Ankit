@@ -1,0 +1,26 @@
+{
+  "name": "revision",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build:css": "npx tailwindcss -i ./public/css/input.css -o ./public/css/output.css --watch",
+    "start": "nodemon app.js",
+    "bs": "browser-sync start --config bs-config.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "ejs": "^3.1.10",
+    "express": "^4.21.2",
+    "nodemon": "^3.1.9",
+    "socket.io": "^4.8.1",
+    "tailwind-scrollbar-hide": "^2.0.0"
+  },
+  "devDependencies": {
+    "tailwindcss": "^3.4.17"
+  }
+}

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GapShup - Chat & Connect</title>
+    <link rel="stylesheet" href="/css/output.css">
+</head>
+<body class="flex items-center justify-center h-screen bg-gradient-to-r from-purple-900 via-pink-700 to-red-600 text-white">
+
+    <div class="relative w-96 p-6 text-center bg-white bg-opacity-10 backdrop-blur-lg rounded-2xl shadow-2xl border border-white border-opacity-20">
+        <!-- Chat bubbles effect -->
+        <div class="absolute -top-6 left-4 bg-pink-500 px-4 py-2 rounded-lg text-white text-sm shadow-lg animate-bounce">
+            Hey, you there? 👋
+        </div>
+        <div class="absolute -bottom-6 right-4 bg-gray-800 px-4 py-2 rounded-lg text-white text-sm shadow-lg">
+            Yes! Let's chat! 😊
+        </div>
+
+        <!-- Glowing Text with Image Background -->
+        <h1 class="text-4xl font-extrabold tracking-wide mb-4 text-transparent bg-clip-text bg-center bg-cover" 
+            style="background-image: url('https://i.pinimg.com/736x/d2/9f/43/d29f43ecac1e4fd62e809ed765eb18e4.jpg'); 
+                   -webkit-text-stroke: 2px rgba(255, 105, 180, 0.8);">
+            GapShup
+        </h1>
+
+        <p class="text-lg text-gray-300 font-light leading-relaxed">Real-time messaging & live video calls. Connect with friends instantly!</p>
+
+        <button class="startButton w-full mt-6 py-3 bg-pink-500 hover:bg-pink-600 transition-all duration-300 text-white font-semibold rounded-full shadow-lg transform hover:scale-105 ring-2 ring-pink-500 hover:ring-pink-400">
+            Start Chatting
+        </button>  
+    </div>
+
+    <script>
+        const chatButton = document.querySelector(".startButton")
+chatButton.addEventListener("click", ()=>{
+   window.location.href = "/chat"
+})
+    </script>
+
+</body>
+</html>

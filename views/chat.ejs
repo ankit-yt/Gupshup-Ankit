@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Futuristic Video Call</title>
+    <link href="/css/output.css" rel="stylesheet">
+</head>
+
+<body class="bg-[#0A0A0A] relative text-white flex items-center justify-center h-screen">
+
+    <div class="relative w-full h-screen">
+        <!-- Video Container -->
+        <div class="relative h-full w-full bg-black">
+            <video autoplay playsinline class="remoteVideo w-full h-full object-fit" src=""></video>
+            <video autoplay playsinline class="localVideo absolute bottom-4 right-4 w-40 h-28 object-fit rounded-lg bg-green-400 shadow-lg"
+                src=""></video>
+        </div>
+
+        <!-- Control Bar -->
+        <div
+            class="absolute bottom-5 left-1/2 transform -translate-x-1/2 bg-opacity-50 backdrop-blur-md px-6 py-3 rounded-full flex gap-6 items-center">
+
+            <div class="flex space-x-4">
+                <!-- Camera Button -->
+                <button id="cameraToggle"
+                    class="p-4 rounded-full bg-gradient-to-r from-pink-500 via-red-500 to-yellow-500 shadow-lg shadow-pink-500/50 hover:shadow-red-500/50 transition-all duration-300">
+                    <span class="block w-6 h-6  rounded-full">
+                        <img class=" camera w-full h-full object-cover" src="/icon/camera.png" alt="">
+                    </span>
+                </button>
+
+                <!-- Mic Button -->
+                <button id="micToggle"
+                    class="p-4 rounded-full bg-gradient-to-r from-purple-500 via-pink-500 to-orange-500 shadow-lg shadow-purple-500/50 hover:shadow-pink-500/50 transition-all duration-300">
+                    <span class="block w-6 h-6  rounded-full">
+                        <img class="mic" src="/icon/mic.png" alt="">
+                    </span>
+                </button>
+
+            </div>
+        </div>
+        <div class="chatArea absolute w-full top-0 h-screen bg-gradient-to-br from-[#121212] via-[#2a002a] to-[#3b002e] text-white flex flex-col">
+            <div class="nobody absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-10 flex flex-col items-center text-center max-w-[90%] sm:max-w-none">
+                <div class="bg-gradient-to-r from-[#F56040] via-[#E1306C] to-[#833AB4] text-white px-6 py-4 rounded-lg shadow-xl animate-pulse">
+                    <p class="text-lg sm:text-xl font-semibold opacity-90 animate-fadeIn">No one is here</p>
+                    <p class="text-sm sm:text-base opacity-75 animate-fadeIn animate-delay-200">Waiting for someone to join...</p>
+                </div>
+            </div>
+        
+            <div class="absolute callNoti hidden top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-11/12 sm:w-64 p-6 bg-white rounded-2xl shadow-xl flex flex-col items-center">
+                <h1 class="text-lg sm:text-xl font-semibold text-gray-800 mb-4">
+                    <span class="animate-bounce inline-block">📞</span> Incoming Call<span class="animate-ping">...</span>
+                </h1>
+                <div class="flex space-x-4">
+                    <button class="bg-green-500 accept text-white px-4 py-2 rounded-full shadow-md hover:bg-green-600 transition duration-300 text-sm sm:text-base">
+                        ✅ Accept
+                    </button>
+                    <button class="bg-red-300 reject text-white px-4 py-2 rounded-full shadow-md hover:bg-red-600 transition duration-300 text-sm sm:text-base">
+                        ❌ Reject
+                    </button>
+                </div>
+            </div>
+        
+            <!-- Navbar -->
+            <nav class="w-full bg-black/40 backdrop-blur-md flex justify-between px-4 sm:px-6 py-3 items-center shadow-lg">
+                <h3 class="text-3xl sm:text-4xl font-bold tracking-wide font-sans text-transparent bg-clip-text"
+                    style="background-image: url('https://i.pinimg.com/736x/d2/9f/43/d29f43ecac1e4fd62e809ed765eb18e4.jpg'); background-size: cover; background-position: center; -webkit-text-stroke: 1px rgba(255, 105, 180, 0.8); 
+            text-shadow: 0 0 8px rgba(255, 105, 180, 0.8), 
+                         0 0 16px rgba(255, 105, 180, 0.6), 
+                         0 0 32px rgba(255, 105, 180, 0.4);">
+                    GapShup
+                </h3>
+        
+                <button class="callBtn bg-gradient-to-r from-purple-500 to-pink-500 text-white px-3 sm:px-4 py-2 rounded-full font-semibold hover:opacity-80 transition-all duration-300 shadow-md text-sm sm:text-base">
+                    Call Now
+                </button>
+            </nav>
+        
+            <!-- Chat Messages -->
+            <div id="chatContainer" class="h-[77vh] sm:h-[40vw] scrollbar-hide overflow-y-auto p-4 sm:p-6 space-y-4"></div>
+        
+            <form class="form w-full px-4 sm:px-6 py-3 sm:py-4 flex items-center bg-black/40 backdrop-blur-md fixed bottom-0">
+                <input type="text" placeholder="Message..."
+                    class="message flex-1 bg-gray-800 text-white px-4 py-2 rounded-full outline-none placeholder-gray-400 shadow-inner focus:bg-gray-700 transition-all text-sm sm:text-base">
+                <button type="submit" class="ml-3 sm:ml-4 bg-gradient-to-r from-purple-500 to-pink-500 px-4 sm:px-5 py-2 rounded-full text-white font-semibold hover:opacity-80 transition-all duration-300 shadow-md text-sm sm:text-base">
+                    ➤
+                </button>
+            </form>
+        </div>
+            <script src="https://cdn.socket.io/4.8.1/socket.io.min.js" integrity="sha384-mkQ3/7FUtcGyoppY6bz/PORYoGqOl7/aSUMn2ymDOJcapfS6PHqxhRTMh1RR0Q6+" crossorigin="anonymous"></script>
+
+
+
+
+            <script>
+
+                function addLocalMessage(text) {
+                    const chatContainer = document.getElementById("chatContainer");
+
+                    const messageWrapper = document.createElement("div");
+                    messageWrapper.classList.add("flex", "justify-end");
+
+                    const messageBubble = document.createElement("div");
+                    messageBubble.classList.add(
+                        "bg-gradient-to-r", "from-purple-500", "to-pink-500",
+                        "text-white", "px-4", "py-2", "rounded-2xl", "shadow-lg", "max-w-xs"
+                    );
+
+                    const messageText = document.createElement("p");
+                    messageText.classList.add("text-sm");
+                    messageText.textContent = text;
+
+                    messageBubble.appendChild(messageText);
+                    messageWrapper.appendChild(messageBubble);
+                    chatContainer.appendChild(messageWrapper);
+
+                    chatContainer.scrollTop = chatContainer.scrollHeight; // Auto-scroll
+                }
+
+                // Function to add a message for the remote user
+                function addRemoteMessage(text) {
+                    const chatContainer = document.getElementById("chatContainer");
+
+                    const messageWrapper = document.createElement("div");
+                    messageWrapper.classList.add("flex", "justify-start");
+
+                    const messageBubble = document.createElement("div");
+                    messageBubble.classList.add(
+                        "bg-white", "text-black", "px-4", "py-2", "rounded-2xl", "shadow-lg", "max-w-xs"
+                    );
+
+                    const messageText = document.createElement("p");
+                    messageText.classList.add("text-sm");
+                    messageText.textContent = text;
+
+                    messageBubble.appendChild(messageText);
+                    messageWrapper.appendChild(messageBubble);
+                    chatContainer.appendChild(messageWrapper);
+
+                    chatContainer.scrollTop = chatContainer.scrollHeight; // Auto-scroll
+                }
+
+                // Example Usage
+                // addLocalMessage("Hey! How are you?");
+                // addRemoteMessage("I'm good, thanks! What about you?");
+
+
+
+                document.getElementById("cameraToggle").addEventListener("click", function () {
+                    document.getElementById("cameraOn").classList.toggle("hidden");
+                    document.getElementById("cameraOff").classList.toggle("hidden");
+                });
+
+
+                document.getElementById("micToggle").addEventListener("click", function () {
+                    document.getElementById("micOn").classList.toggle("hidden");
+                    document.getElementById("micOff").classList.toggle("hidden");
+                });
+
+                let micMute = false
+
+                document.querySelector("#micToggle").addEventListener("click", (e) => {
+                    micMute = !micMute;
+                    if (micMute) {
+                        document.querySelector(".mic").src = "/icon/microphone.png";
+                        document.querySelector("#micToggle").classList.remove("bg-gradient-to-r", "from-purple-500", "via-pink-500", "to-orange-500", "shadow-lg", "shadow-purple-500/50", "hover:shadow-pink-500/50");
+                        document.querySelector("#micToggle").classList.add("bg-gray-500");
+                    } else {
+                        document.querySelector(".mic").src = "/icon/mic.png";
+                        document.querySelector("#micToggle").classList.remove("bg-gray-500");
+                        document.querySelector("#micToggle").classList.add("bg-gradient-to-r", "from-purple-500", "via-pink-500", "to-orange-500", "shadow-lg", "shadow-purple-500/50", "hover:shadow-pink-500/50");
+                    }
+
+                })
+
+                let cameraOff = false
+                document.querySelector("#cameraToggle").addEventListener("click", (e) => {
+                    cameraOff = !cameraOff;
+                    if (cameraOff) {
+                        document.querySelector(".camera").src = "/icon/cameraOff.png";
+                        document.querySelector("#cameraToggle").classList.remove("bg-gradient-to-r", "from-purple-500", "via-pink-500", "to-orange-500", "shadow-lg", "shadow-purple-500/50", "hover:shadow-pink-500/50");
+                        document.querySelector("#cameraToggle").classList.add("bg-gray-500");
+                    } else {
+                        document.querySelector(".camera").src = "/icon/camera.png";
+                        document.querySelector("#cameraToggle").classList.remove("bg-gray-500");
+                        document.querySelector("#cameraToggle").classList.add("bg-gradient-to-r", "from-purple-500", "via-pink-500", "to-orange-500", "shadow-lg", "shadow-purple-500/50", "hover:shadow-pink-500/50");
+                    }
+
+                })
+
+            </script>
+            <script src="/js/script.js"></script>
+</body>
+
+</html>
